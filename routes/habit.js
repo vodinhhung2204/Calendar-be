@@ -4,6 +4,36 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const Habit = require("../models/Habit");
 
+/**
+* @swagger
+* /habit/create:
+*   post:
+*     tags:
+*       - Habit
+*     name: Create New Habit
+*     summary: Create New Habit
+*     security:
+*       - bearerAuth: []
+*     consumes:
+*       - application/json
+*     produces:
+*       - application/json
+*     parameters:
+*       - in: query
+*         name: name, slogan, timeBegin, timeEnd, repeat, color
+*         schema:
+*           type: String, String, Date, Date, number, String
+*         required:
+*           - name, slogan, color, timeBegin, timeEnd, repeat
+*     responses:
+*       201:
+*         description: Create new habit successed !
+*         schema:
+*           $ref: '#/habit/create'
+*       400:
+*         description: Error
+*/
+
 const validateTime = (habit) => {
   if (!habit.timeEnd && !habit.after) {
     return {

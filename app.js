@@ -1,6 +1,7 @@
 
 const createError = require("http-errors");
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -8,16 +9,43 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const fs = require("fs");
 const chalk = require("chalk");
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const habitRouter = require("./routes/habit");
 const userController = require("./controllers/UserController");
 const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const config = require("./config/index");
+const checkedDayRouter = require("./routes/checkedDay");
 
 const app = express();
-
+app.use(cors());
 const { port } = config.server;
+
+const swaggerDefinition = {
+  info: {
+    title: "Calendar",
+    version: "1.0.0",
+    description: "Anh Duy",
+  },
+  host: `localhost:${port}`,
+  basePath: "/",
+  securityDefinitions: {
+    bearerAuth: {
+      type: "apiKey",
+      name: "Authorization",
+      scheme: "bearer",
+      in: "header",
+    },
+  },
+};
+
+const options = {
+  swaggerDefinition,
+  apis: ["./routes/*.js"],
+};
+
 
 mongoose.connect(config.db, { useNewUrlParser: true });
 mongoose.connection.on("error", () => {
@@ -32,11 +60,17 @@ if (config.env === "development") {
   mongoose.set("debug", true);
 }
 
-
 // Load envs from .env file
 if (fs.existsSync("./.env")) {
   dotenv.config();
 }
+
+const swaggerSpec = swaggerJSDoc(options);
+
+app.get("/swagger.json", (request, response) => {
+  response.setHeader("Content-Type", "application/json");
+  response.send(swaggerSpec);
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -47,6 +81,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // use JWT auth to secure the api
 app.use(userController.jwtFunc());
@@ -66,6 +102,9 @@ app.use((err, request, response, next) => {
   }
   return next();
 });
+
+// api Checked Day
+app.use("/checked", checkedDayRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

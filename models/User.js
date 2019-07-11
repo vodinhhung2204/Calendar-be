@@ -2,6 +2,29 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 
+/**
+ *  @swagger
+ *  definitions:
+ *  User:
+ *  type: object
+ *  properties:
+ *    username: type: String
+ *    password: type: String
+ *    fullname: type: String
+ *    email: type: String
+ *    role: type: String
+ *    required:
+ *      - username
+ *      - password
+ *      - fullname
+ *      - email
+ *      - role
+ *  methods:
+ *    comparePassword
+ *    getHash
+ *    emailValidator
+ */
+
 const emailValidator = [
   val => validator.isEmail(val),
   "Email is Incorrect format",

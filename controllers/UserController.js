@@ -6,8 +6,8 @@ const expressJwt = require("express-jwt");
 const config = require("../config/index");
 const User = require("../models/User");
 
-async function getById(id) {
-  const user = await User.findById(id);
+async function getById(_id) {
+  const user = await User.findById({ _id });
   return user || null;
 }
 function jwtFunc() {
@@ -16,7 +16,7 @@ function jwtFunc() {
     {
       secret,
       async function(req, payload, done) {
-        const user = await getById(payload.sub);
+        const user = await getById(payload.userID);
         // revoke token if user no longer exists
         if (!user) {
           return done(null, true);
@@ -36,7 +36,7 @@ function jwtFunc() {
 async function login(username, password) {
   const user = await User.findOne({ username });
   if (user && bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({ payload: user._id }, config.secret);
+    const token = jwt.sign({ userID: user._id }, config.secret);
     return {
       status: "true",
       token,

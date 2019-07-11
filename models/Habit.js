@@ -1,7 +1,30 @@
 const mongoose = require("mongoose");
 
+/**
+ *  @swagger
+ *  definitions:
+ *  Habit:
+ *  type: object
+ *  properties:
+ *    userID: type: String
+ *    name: type: String
+ *    slogan: type: String
+ *    timeBegin: type: Date
+ *    timeEnd: type: Date
+ *    after: type: number
+ *    repeat: type: number
+ *    color: type: String
+ *    required:
+ *      - name
+ *      - slogan
+ *      - color
+ *      - timeBegin
+ *  methods:
+ *    getAfter
+ */
+
 const habitSchema = new mongoose.Schema({
-  idUser: {
+  userID: {
     type: String,
     required: "idUser is required !",
   },
