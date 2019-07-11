@@ -4,20 +4,20 @@ const bcrypt = require("bcrypt");
 
 const emailValidator = [
   val => validator.isEmail(val),
-  "Email is incorrect format",
+  "Email is Incorrect format",
 ];
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: "Username is required",
+    required: "Username is requied",
   },
   password: {
     type: String,
-    required: "Username is required",
+    required: "Username is requied",
   },
   fullname: {
     type: String,
-    required: "Fullname is required",
+    required: "Fullname is requied",
   },
   email: {
     type: String,

@@ -1,3 +1,4 @@
+
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -8,17 +9,17 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 const chalk = require("chalk");
 
+const habitRouter = require("./routes/habit");
 const userController = require("./controllers/UserController");
 const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const config = require("./config/index");
 
-
 const app = express();
 
 const { port } = config.server;
 
-mongoose.connect(config.db);
+mongoose.connect(config.db, { useNewUrlParser: true });
 mongoose.connection.on("error", () => {
   throw new Error(`unable to connect to database: ${chalk.red(config.db)}`);
 });
@@ -55,7 +56,7 @@ app.use("/register", registerRouter);
 
 // api Login
 app.use("/login", loginRouter);
-
+app.use("/habit", habitRouter);
 app.use((err, request, response, next) => {
   if (err.name === "UnauthorizedError") {
     return response.status(403).send({
