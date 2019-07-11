@@ -19,17 +19,27 @@ const Habit = require("../models/Habit");
 *     produces:
 *       - application/json
 *     parameters:
-*       - in: query
-*         name: name, slogan, timeBegin, timeEnd, repeat, color
+*       - name: body
+*         in: body
 *         schema:
-*           type: String, String, Date, Date, number, String
+*           $ref: '#/definitions/Habit'
+*           type: object
+*           properties:
+*             name:
+*               type: string
+*             slogan:
+*               type: string
+*             timeStart:
+*               type: Date
+*             timeEnd:
+*               type: Date
+*             color:
+*               type: string
 *         required:
-*           - name, slogan, color, timeBegin, timeEnd, repeat
+*           - name, slogan, timeStart, timeEnd, color
 *     responses:
 *       201:
 *         description: Create new habit successed !
-*         schema:
-*           $ref: '#/habit/create'
 *       400:
 *         description: Error
 */
@@ -63,6 +73,8 @@ router.route("/create")
     }
     const decode = jwt.decode(req.headers.authorization.split(" ")[1]);
     habit.idUser = decode.payload;
+    habit.totalFinishDay = 0;
+    habit.totalUnfinishedDay = 0;
     return habit.save()
       .then(result => res.status(201).json({ data: result, message: "Create new habit successed !" }))
       .catch(err => res.status(400).json(err.errors));

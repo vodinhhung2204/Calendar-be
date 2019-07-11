@@ -40,6 +40,7 @@ module.exports = {
     ],
     "no-use-before-define": ["error", { "functions": false, "classes": true }],
     "no-shadow": ["error", { "builtinGlobals": true, "hoist": "functions", "allow": [] }],
-    "no-underscore-dangle": ["error", { "allow": ["id_", "_id"] }]
+    "no-underscore-dangle": ["error", { "allow": ["id_", "_id"] }],
+    "no-param-reassign": ["error", { "props": false }]
   }
 };

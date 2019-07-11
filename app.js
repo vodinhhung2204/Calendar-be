@@ -19,6 +19,7 @@ const loginRouter = require("./routes/login");
 const config = require("./config/index");
 const checkedDayRouter = require("./routes/checkedDay");
 const indexRouter = require("./routes/index");
+const showCheckedOnDayRouter = require("./routes/showCheckedOnDay");
 
 const app = express();
 app.use(cors());
@@ -105,9 +106,11 @@ app.use((err, request, response, next) => {
   return next();
 });
 
-// api Checked Day
-app.use("/checked", checkedDayRouter);
+// api show checked on day
+app.use("/show-on-day", showCheckedOnDayRouter);
 
+// api checked day
+app.use("/checked", checkedDayRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
