@@ -18,8 +18,15 @@ async function getItemByHabitIDAndUserID(habitID, userID) {
   return null;
 }
 
+async function getListHabitByHabitIDAndUserID(listHabitID, userID) {
+  if (typeof (listHabitID) === "string") return getItemByHabitIDAndUserID(listHabitID, userID);
+  const list = await Habit.find({ _id: { $in: listHabitID }, userID });
+  return list || null;
+}
+
 module.exports = {
-  getItemByHabitIDAndUserID,
   getAll,
   getItemsByUserID,
+  getItemByHabitIDAndUserID,
+  getListHabitByHabitIDAndUserID,
 };
