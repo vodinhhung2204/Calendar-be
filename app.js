@@ -20,6 +20,7 @@ const config = require("./config/index");
 const checkedDayRouter = require("./routes/checkedDay");
 const indexRouter = require("./routes/index");
 const showCheckedOnDayRouter = require("./routes/showCheckedOnDay");
+const profileRouter = require("./routes/profile");
 
 const app = express();
 app.use(cors());
@@ -29,7 +30,7 @@ const swaggerDefinition = {
   info: {
     title: "Calendar",
     version: "1.0.0",
-    description: "Anh Duy",
+    description: "Internship Program At CES",
   },
   host: `localhost:${port}`,
   basePath: "/",
@@ -111,6 +112,10 @@ app.use("/show-on-day", showCheckedOnDayRouter);
 
 // api checked day
 app.use("/checked", checkedDayRouter);
+
+// api profile
+app.use("/profile", profileRouter);
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
