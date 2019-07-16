@@ -1,14 +1,16 @@
 {
-  "name": "calendarproject1",
+  "name": "calendarproject",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "lint": "eslint ./routes/ ./models/ ",
+    "lint": "eslint ./routes/ ./models/ ./controllers/",
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
+    "chalk": "^2.4.2",
     "cookie-parser": "^1.4.4",
+    "datalize": "^0.3.4",
     "debug": "^2.6.9",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
@@ -27,17 +29,5 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0"
-  },
-  "description": "<!-- START doctoc generated TOC please keep comment here to allow auto update -->\r <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->\r **Table of Contents**",
-  "main": ".eslintrc.js",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/codeengine-interns/internship-summer-2019-3th-year-seinfeld-calendar-be.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/codeengine-interns/internship-summer-2019-3th-year-seinfeld-calendar-be/issues"
-  },
-  "homepage": "https://gitlab.com/codeengine-interns/internship-summer-2019-3th-year-seinfeld-calendar-be#readme"
+  }
 }

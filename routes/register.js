@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
-const User = require('../models/User.js');
+const User = require("../models/User.js");
 /* GET users listing. */
-router.route('/')
+router.route("/")
   .post(async (req, res) => {
     const user = new User(req.body);
     if (await User.findOne({ username: user.username })) {
@@ -13,7 +13,7 @@ router.route('/')
       user.password = user.getHash(user.password);
     }
     return user.save()
-      .then(() => res.status(201).json({ message: 'Register successed !' }))
+      .then(() => res.status(201).json({ message: "Register successed !" }))
       .catch(err => res.status(400).json(err.errors));
   });
 
