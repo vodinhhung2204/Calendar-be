@@ -1,10 +1,11 @@
 /**
  * Module dependencies.
  */
-const debug = require('debug')('calendarproject1:server');
-const http = require('http');
-const app = require('../app');
-const config = require('../config');
+const debug = require("debug")("calendarproject1:server");
+const http = require("http");
+const chalk = require("chalk");
+const app = require("../app");
+const config = require("../config");
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -28,7 +29,7 @@ function normalizePort(val) {
  */
 
 const port = normalizePort(config.server.port);
-app.set('port', port);
+app.set("port", port);
 
 /**
  * Create HTTP server.
@@ -41,7 +42,7 @@ const server = http.createServer(app);
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
@@ -51,10 +52,10 @@ function onError(error) {
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
+    case "EACCES":
       process.exit(1);
       break;
-    case 'EADDRINUSE':
+    case "EADDRINUSE":
       process.exit(1);
       break;
     default:
@@ -65,14 +66,13 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
   //  console.log('you are on Listening ');
   const addr = server.address();
-  const bind = typeof addr === 'string'
+  const bind = typeof addr === "string"
     ? `pipe ${addr}`
     : `port ${addr.port}`;
-  debug(`Listening on ${bind}`);
+  debug(`Listening on ${chalk.red(bind)}`);
 }
 
 /**
@@ -82,5 +82,5 @@ function onListening() {
 server.listen(port, () => {
   //  console.log(`Server is running on port ${port}`);
 });
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);

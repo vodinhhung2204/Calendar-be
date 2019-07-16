@@ -1,10 +1,12 @@
 
 module.exports = {
-  env: process.env.NODE_ENV || 'development',
+  env: process.env.NODE_ENV || "development",
   server: {
     port: process.env.PORT || 3005,
   },
   logging: {
-    level: process.env.LOG_LEVEL || 'debug',
+    level: process.env.LOG_LEVEL || "debug",
   },
+  secret: "codeenginestudio",
+  db: "mongodb://localhost/calendar",
 };
