@@ -18,6 +18,7 @@ const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const config = require("./config/index");
 const checkedDayRouter = require("./routes/checkedDay");
+const indexRouter = require("./routes/index");
 
 const app = express();
 app.use(cors());
@@ -93,6 +94,7 @@ app.use("/register", registerRouter);
 // api Login
 app.use("/login", loginRouter);
 app.use("/habit", habitRouter);
+app.use("/index", indexRouter);
 app.use((err, request, response, next) => {
   if (err.name === "UnauthorizedError") {
     return response.status(403).send({
