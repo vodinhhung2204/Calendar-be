@@ -17,7 +17,7 @@ const userController = require("./../controllers/UserController");
 *       - name: body
 *         in: body
 *         schema:
-*           $ref: '#/login'
+*           $ref: '#/definitions/User'
 *           type: object
 *           properties:
 *             username:
@@ -30,7 +30,7 @@ const userController = require("./../controllers/UserController");
 *           - password
 *     responses:
 *       200:
-*         description: User found and logged in successfully
+*         description: logged in successfully
 *       400:
 *          desxription: Username or password is incorrect
 */

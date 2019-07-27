@@ -22,17 +22,23 @@ const util = require("./../utils/functionUtils");
 *     produces:
 *       - application/json
 *     parameters:
-*       - in: query
-*         name: habitID, dayChecked, note, color
+*       - name: body
+*         in: body
 *         schema:
-*           type: String, Date, String, String
+*           $ref: '#/definitions/CheckedDay'
+*           type: object
+*           properties:
+*             dayChecked:
+*               type: Date
+*             habitID:
+*               type: string
+*             note:
+*               type: string
 *         required:
-*           - dayChecked, Node
+*           - dayChecked, habitID, note
 *     responses:
 *       200:
 *         description: Checked day is success
-*         schema:
-*           $ref: '#/checked'
 *       400:
 *         description: Checked day is fail
 */
@@ -47,6 +53,7 @@ function addCheckedDay(request, response, next) {
     dayChecked: new Date(request.body.dayChecked),
     note: request.body.note,
     color: "fffff",
+    status: request.body.status,
   };
   const checkedDay = checkedController.getItemByDayChecked(
     input.dayChecked, input.userID, input.habitID,
@@ -58,6 +65,10 @@ function addCheckedDay(request, response, next) {
     }
     return habit.then((h) => {
       if (h._id !== null && util.compareDate(input.dayChecked, h.timeEnd) <= 0) {
+        if (input.status === 1) {
+          h.totalFinishDay += 1;
+        } else h.totalUnfinishedDay += 1;
+        h.save();
         input.color = h.color;
         const result = new CheckedDay(input);
         return result.save(() => checkedController.getCheckedDaysByUserIDAndHabitID(

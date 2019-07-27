@@ -18,17 +18,27 @@ const User = require("../models/User.js");
 *     produces:
 *       - application/json
 *     parameters:
-*       - in: query
-*         name: username, password, email, fullname, role
+*       - name: body
+*         in: body
 *         schema:
-*           type: string, string, string, string, string
+*           $ref: '#/definitions/User'
+*           type: object
+*           properties:
+*             username:
+*               type: string
+*             fullname:
+*               type: string
+*             password:
+*               type: string
+*             email:
+*               type: email
+*             role:
+*               type: string
 *         required:
 *           - username, password, email, fullname, role
 *     responses:
 *       201:
 *         description: Register is success!
-*         schema:
-*           $ref: '#/register'
 *       400:
 *         description: Register is fail!
 */

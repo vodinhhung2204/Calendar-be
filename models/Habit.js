@@ -14,6 +14,8 @@ const mongoose = require("mongoose");
  *    after: type: number
  *    repeat: type: number
  *    color: type: String
+ *    totalFinishDay: type: Number
+ *    totalUnfinishedDay: type: Number
  *    required:
  *      - name
  *      - slogan
@@ -47,6 +49,8 @@ const habitSchema = new mongoose.Schema({
     type: String,
     required: "Color is required !",
   },
+  totalFinishDay: { type: Number },
+  totolUnfinishedDay: { type: Number },
 });
 
 habitSchema.methods.getAfter = (timeBegin, timeEnd) => {

@@ -27,6 +27,7 @@ const CheckedDaySchema = new Schema({
   dayChecked: { type: Date },
   note: { type: String, required: "Note is required !" },
   color: { type: String, required: "Color is required !" },
+  status: { type: Number },
 });
 
 module.exports = mongoose.model("CheckedDay", CheckedDaySchema);
