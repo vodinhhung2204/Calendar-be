@@ -8,14 +8,10 @@ const User = require("../models/User.js");
 * /register:
 *   post:
 *     tags:
-*       - Register
+*       - User
 *     name: Register
 *     summary: Register
-*     security:
-*       - bearerAuth: []
 *     consumes:
-*       - application/json
-*     produces:
 *       - application/json
 *     parameters:
 *       - name: body

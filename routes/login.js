@@ -10,7 +10,7 @@ const userController = require("./../controllers/UserController");
 *     tags:
 *       - User
 *     name: Login
-*     summary: Logs in a user
+*     summary: Log in a user
 *     consumes:
 *       - application/json
 *     parameters:

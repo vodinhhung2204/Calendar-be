@@ -34,8 +34,10 @@ const util = require("./../utils/functionUtils");
 *               type: string
 *             note:
 *               type: string
+*             status:
+*               type: string
 *         required:
-*           - dayChecked, habitID, note
+*           - dayChecked, habitID, note, status
 *     responses:
 *       200:
 *         description: Checked day is success
@@ -70,12 +72,18 @@ function addCheckedDay(request, response, next) {
         } else h.totalUnfinishedDay += 1;
         h.save();
         input.color = h.color;
+        if (input.status === 1) {
+          h.totalFinishDay += 1;
+        } else h.totalUnfinishedDay += 1;
+        h.save();
         const result = new CheckedDay(input);
-        return result.save(() => checkedController.getCheckedDaysByUserIDAndHabitID(
-          input.userID, input.habitID,
-        )
-          .then(checked => response.status(200).json(checked))
-          .catch(err => next(err)));
+        return result.save(() => {
+          checkedController.getCheckedDaysByUserIDAndHabitID(
+            input.userID, input.habitID,
+          )
+            .then(checked => response.status(200).json(checked))
+            .catch(err => next(err));
+        });
       }
       return response.status(400).json("Checked Day Fail!");
     })

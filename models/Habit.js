@@ -50,7 +50,7 @@ const habitSchema = new mongoose.Schema({
     required: "Color is required !",
   },
   totalFinishDay: { type: Number },
-  totolUnfinishedDay: { type: Number },
+  totalUnfinishedDay: { type: Number },
 });
 
 habitSchema.methods.getAfter = (timeBegin, timeEnd) => {

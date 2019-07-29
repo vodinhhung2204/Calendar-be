@@ -16,6 +16,7 @@ db.users.insert([
     role: "Student",
   },
 ]);
+
 db.habits.insert([
   {
     userID: "5d358cce067ab52957664a10",
@@ -48,6 +49,7 @@ db.habits.insert([
     totalUnfinishedDay: 0,
   },
 ]);
+
 db.checkeddays.insert([
   {
     habitID: "5d358d213edcd2dc1113b445",

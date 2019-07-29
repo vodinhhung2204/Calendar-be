@@ -14,7 +14,7 @@
     info: {
       title: "Calendar",
       version: "1.0.0",
-      description: "Anh Duy",
+      description: "Internship Program At CES",
     },
     host: `localhost:${port}`,
     basePath: "/",
