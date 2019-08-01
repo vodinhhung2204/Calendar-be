@@ -72,10 +72,6 @@ function addCheckedDay(request, response, next) {
         } else h.totalUnfinishedDay += 1;
         h.save();
         input.color = h.color;
-        if (input.status === 1) {
-          h.totalFinishDay += 1;
-        } else h.totalUnfinishedDay += 1;
-        h.save();
         const result = new CheckedDay(input);
         return result.save(() => {
           checkedController.getCheckedDaysByUserIDAndHabitID(

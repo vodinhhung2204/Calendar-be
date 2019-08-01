@@ -35,17 +35,17 @@ const userController = require("./../controllers/UserController");
 const profileRouter = express.Router();
 
 function profile(request, response) {
+  console.log("in this functin");
   const payload = jwt.decode(request.headers.authorization.split(" ")[1]);
-  const userInfor = userController.getById(payload.userID);
-  habitController.getItemsByUserID(payload.userID)
-    .then((habits) => {
-      userInfor.then((user) => {
-        response.status(200).json({ userInformation: user, listOfHabits: habits });
-      }).catch(err => response.status(404).json(err));
+  userController.getById(payload.userID)
+    .then((user) => {
+      habitController.getItemsByUserID(payload.userID)
+        .then(habits => response.status(200).json({ userInformation: user, listOfHabits: habits }))
+        .catch(err => response.status(400).json(err));
     })
-    .catch(err => response.status(404).json(err));
+    .catch(err => response.status(400).json(err));
 }
 
-profileRouter.post("/", profile);
+profileRouter.get("/", profile);
 
 module.exports = profileRouter;

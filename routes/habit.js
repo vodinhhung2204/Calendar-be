@@ -72,7 +72,7 @@ router.route("/create")
       habit.timeEnd.setDate(habit.timeBegin.getDate() + habit.after);
     }
     const decode = jwt.decode(req.headers.authorization.split(" ")[1]);
-    habit.idUser = decode.userID;
+    habit.userID = decode.userID;
     habit.totalFinishDay = 0;
     habit.totalUnfinishedDay = 0;
     return habit.save()

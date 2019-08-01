@@ -8,5 +8,5 @@ module.exports = {
     level: process.env.LOG_LEVEL || "debug",
   },
   secret: "codeenginestudio",
-  db: "mongodb://localhost/calendar",
+  db: "mongodb://vodinhhung:abc123456@ds157857.mlab.com:57857/calendar",
 };
